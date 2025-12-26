@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Message ❄️</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <!-- Экран авторизации -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-box">
+            <h1>Wave Message ❄️✨</h1>
+            <p class="subtitle">Приватный мессенджер как Telegram</p>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="login">Вход</button>
+                <button class="tab" data-tab="register">Регистрация</button>
+            </div>
+
+            <div id="login-form" class="form active">
+                <input type="text" id="login-username" placeholder="@username">
+                <input type="password" id="login-password" placeholder="Пароль">
+                <button id="login-btn" class="big-btn">Войти</button>
+            </div>
+
+            <div id="register-form" class="form">
+                <input type="text" id="reg-name" placeholder="Имя *">
+                <input type="text" id="reg-surname" placeholder="Фамилия">
+                <input type="text" id="reg-username" placeholder="@username *">
+                <input type="password" id="reg-password" placeholder="Пароль *">
+                <textarea id="reg-bio" placeholder="О себе (необязательно)" rows="3"></textarea>
+                <div class="avatar-upload">
+                    <label>Фото профиля<br><input type="file" id="reg-avatar" accept="image/*"></label>
+                    <img id="avatar-preview" class="hidden" alt="Превью">
+                </div>
+                <button id="register-btn" class="big-btn">Создать аккаунт</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Главный экран -->
+    <div id="main-screen" class="screen hidden">
+        <div class="chat-container">
+            <header>
+                <div class="profile-header">
+                    <img id="my-avatar" src="https://via.placeholder.com/50" alt="Ты">
+                    <div>
+                        <h2 id="my-name"></h2>
+                        <p id="my-username"></p>
+                    </div>
+                </div>
+                <p class="hint">Подсказка: в настройках можно включить зимний снегопад ❄️</p>
+                <button id="settings-btn">⚙️</button>
+                <button id="logout-btn" class="small-btn">Выйти</button>
+            </header>
+
+            <div class="main-content">
+                <div class="sidebar">
+                    <div class="search-contact">
+                        <input type="text" id="search-input" placeholder="Поиск по @username">
+                        <button id="add-contact-btn" class="small-btn">Добавить</button>
+                    </div>
+                    <div id="contacts-list" class="contacts">
+                        <p class="placeholder">Добавь друга по @username</p>
+                    </div>
+                </div>
+
+                <div id="chat-area" class="chat-area hidden">
+                    <div class="chat-header">
+                        <img id="partner-avatar" src="https://via.placeholder.com/50" alt="">
+                        <div>
+                            <h2 id="chat-partner-name"></h2>
+                            <p id="partner-bio"></p>
+                        </div>
+                    </div>
+                    <div id="messages" class="messages"></div>
+                    <div class="input-area">
+                        <textarea id="message-input" placeholder="Сообщение..."></textarea>
+                        <div class="buttons">
+                            <label class="photo-btn">📷 <input type="file" id="media-input" accept="image/*,video/*" hidden></label>
+                            <button id="send-message-btn">➤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Настройки -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Настройки</h2>
+                <label>
+                    <input type="checkbox" id="snow-toggle">
+                    Режим снегопада ❄️ (включить волшебство)
+                </label>
+                <button id="close-settings" class="big-btn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
